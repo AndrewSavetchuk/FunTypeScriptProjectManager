@@ -1,0 +1,13 @@
+# Mac OS
+.DS_Store
+
+# IDE's
+.idea/
+*.iml
+*.iws
+
+# Node
+node_modules/
+
+# Build
+*.js

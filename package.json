@@ -1,0 +1,22 @@
+{
+  "name": "fun-project-manager",
+  "version": "1.0.0",
+  "description": "Drag-and-drop project manager in vanilla JavaScript and TypeScript.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server"
+  },
+  "keywords": [
+    "drag-and-drop",
+    "project management",
+    "vanilla javascript",
+    "typescript",
+    "front-end"
+  ],
+  "author": "Andrew Savetchuk <andrew.savetchuk@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
