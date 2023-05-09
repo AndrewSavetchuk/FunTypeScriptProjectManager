@@ -18,6 +18,7 @@
   "author": "Andrew Savetchuk <andrew.savetchuk@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "class-validator": "^0.14.0",
     "clean-webpack-plugin": "^4.0.0",
     "ts-loader": "^9.4.2",
     "typescript": "^5.0.4",

@@ -1,7 +1,8 @@
 import Component from './Component';
+import Project, { ProjectStatus } from '../models/Project';
 import autobind from '../decorators/autobind';
-import { Validatable, validate } from '../utils/validation';
 import { projectState } from '../state/ProjectState';
+import { validate, ValidationError } from 'class-validator';
 
 export default class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
   titleInputElement: HTMLInputElement;
@@ -23,55 +24,39 @@ export default class ProjectInput extends Component<HTMLDivElement, HTMLFormElem
   renderContent(): void {
   }
 
-  private gatherUserInput(): [string, string, number] | void {
-    const enteredTitle = this.titleInputElement.value;
-    const enteredDescription = this.descriptionInputElement.value;
-    const enteredUsers = this.usersInputElement.value;
-
-    const titleValidatable: Validatable = {
-      value: enteredTitle,
-      required: true,
-    };
-
-    const descriptionValidatable: Validatable = {
-      value: enteredDescription,
-      required: true,
-    };
-
-    const usersValidatable: Validatable = {
-      value: Number(enteredUsers),
-      required: true,
-      min: 1,
-    };
-
-    if (
-      !validate(titleValidatable) ||
-      !validate(descriptionValidatable) ||
-      !validate(usersValidatable)
-    ) {
-      alert('Invalid input, please try again.');
-      return;
-    }
-
-    return [enteredTitle, enteredDescription, Number(enteredUsers)];
-  }
-
   private clearInputs(): void {
     this.titleInputElement.value = '';
     this.descriptionInputElement.value = '';
     this.usersInputElement.value = '';
   }
 
+  private formatErrorMessage(error: ValidationError): string {
+    if (error.constraints) {
+      const errorMessage = Object.values(error.constraints).join(', ');
+      return `${errorMessage.charAt(0).toUpperCase()}${errorMessage.slice(1)}.`;
+    }
+    return '';
+  }
+
   @autobind
-  private submitHandler(event: Event): void {
+  private async submitHandler(event: Event): Promise<void> {
     event.preventDefault();
 
-    const userInput = this.gatherUserInput();
+    const id = Math.random().toString();
+    const title = this.titleInputElement.value;
+    const description = this.descriptionInputElement.value;
+    const users = Number(this.usersInputElement.value);
+    const status = ProjectStatus.Active;
 
-    if (Array.isArray(userInput)) {
-      const [title, description, users] = userInput;
+    const project = new Project(id, title, description, users, status);
+    const errors = await validate(project);
+
+    if (errors.length > 0) {
+      const errorMessages = errors.map(this.formatErrorMessage).join('\n');
+      alert(`Validation failed:\n${errorMessages}`);
+    } else {
+      projectState.addProject(project);
       this.clearInputs();
-      projectState.addProject(title, description, users);
     }
   }
 }
