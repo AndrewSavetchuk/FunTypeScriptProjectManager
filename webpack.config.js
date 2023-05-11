@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: './app.ts',
+  entry: './src/app.ts',
   devServer: {
     static: [
       {
