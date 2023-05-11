@@ -49,6 +49,8 @@ export default class ProjectList extends Component<HTMLDivElement, HTMLElement> 
 
   @autobind
   dropHandler(event: DragEvent): void {
+    event.preventDefault()
+
     const projectId = event.dataTransfer!.getData('text/plain');
     projectState.moveProject(projectId, this.type === 'active' ? ProjectStatus.Active : ProjectStatus.Finished);
     this.element.querySelector('ul')!.classList.remove('droppable');
