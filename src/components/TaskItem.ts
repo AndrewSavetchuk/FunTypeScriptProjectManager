@@ -1,22 +1,22 @@
 import Component from './Component';
-import Project from '../models/Project';
+import Task from '../models/Task';
 import autobind from '../decorators/autobind';
 import { Draggable } from '../models/DragDrop';
 
-export default class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> implements Draggable {
-  private project: Project;
+export default class TaskItem extends Component<HTMLUListElement, HTMLLIElement> implements Draggable {
+  private task: Task;
 
   get users(): string {
-    if (this.project.users === 1) {
+    if (this.task.users === 1) {
       return '1 user';
     } else {
-      return `${this.project.users} users`;
+      return `${this.task.users} users`;
     }
   }
 
-  constructor(hostId: string, project: Project) {
-    super('js-single-project', hostId, false, project.id);
-    this.project = project;
+  constructor(hostId: string, task: Task) {
+    super('js-single-task', hostId, false, task.id);
+    this.task = task;
 
     this.configure();
     this.renderContent();
@@ -28,14 +28,14 @@ export default class ProjectItem extends Component<HTMLUListElement, HTMLLIEleme
   }
 
   renderContent(): void {
-    this.element.querySelector('h2')!.textContent = this.project.title;
+    this.element.querySelector('h2')!.textContent = this.task.title;
     this.element.querySelector('h3')!.textContent = this.users;
-    this.element.querySelector('p')!.textContent = this.project.description;
+    this.element.querySelector('p')!.textContent = this.task.description;
   }
 
   @autobind
   dragStartHandler(event: DragEvent): void {
-    event.dataTransfer!.setData('text/plain', this.project.id);
+    event.dataTransfer!.setData('text/plain', this.task.id);
     event.dataTransfer!.effectAllowed = 'move';
   }
 

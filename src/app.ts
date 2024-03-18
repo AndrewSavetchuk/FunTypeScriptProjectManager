@@ -1,6 +1,6 @@
-import ProjectList from './components/ProjectList';
-import ProjectInput from './components/ProjectInput';
+import TaskList from './components/TaskList';
+import TaskInput from './components/TaskInput';
 
-new ProjectInput();
-new ProjectList('active');
-new ProjectList('finished');
+new TaskInput();
+new TaskList('active');
+new TaskList('finished');

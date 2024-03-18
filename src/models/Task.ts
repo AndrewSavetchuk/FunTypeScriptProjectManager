@@ -1,11 +1,11 @@
 import { IsEnum, IsNotEmpty, IsString, Min } from 'class-validator';
 
-export enum ProjectStatus {
+export enum TaskStatus {
   Active,
   Finished,
 }
 
-export default class Project {
+export default class Task {
   @IsNotEmpty()
   @IsString()
   id: string;
@@ -22,15 +22,15 @@ export default class Project {
   users: number;
 
   @IsNotEmpty()
-  @IsEnum(ProjectStatus)
-  status: ProjectStatus;
+  @IsEnum(TaskStatus)
+  status: TaskStatus;
 
   constructor(
     id: string,
     title: string,
     description: string,
     users: number,
-    status: ProjectStatus,
+    status: TaskStatus,
   ) {
     this.id = id;
     this.title = title;

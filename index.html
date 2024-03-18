@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Manager</title>
+  <title>Task Manager</title>
   <link rel="stylesheet" href="app.css">
   <script src="dist/bundle.js" defer></script>
   <script src="/_vercel/insights/script.js" defer></script>
 </head>
 <body>
 <div>
-  <h1 class="title">Project Manager</h1>
-  <template id="js-project-input">
+  <h1 class="title">Task Manager</h1>
+  <template id="js-task-input">
     <form class="form">
       <div class="form-control">
         <label for="title">Title *</label>
@@ -23,21 +23,21 @@
         <textarea id="description" rows="3"></textarea>
       </div>
       <div class="form-control">
-        <label for="users">Users *</label>
+        <label for="users">Number of Users *</label>
         <input id="users" type="number" step="1">
       </div>
-      <button type="submit">ADD PROJECT</button>
+      <button type="submit">ADD TASK</button>
     </form>
   </template>
-  <template id="js-single-project">
+  <template id="js-single-task">
     <li draggable="true">
       <h2></h2>
       <h3></h3>
       <p></p>
     </li>
   </template>
-  <template id="js-project-list">
-    <section class="projects">
+  <template id="js-task-list">
+    <section class="tasks">
       <header>
         <h2></h2>
       </header>

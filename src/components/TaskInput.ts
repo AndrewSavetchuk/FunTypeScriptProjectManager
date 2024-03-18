@@ -1,16 +1,16 @@
 import Component from './Component';
-import Project, { ProjectStatus } from '../models/Project';
+import Task, { TaskStatus } from '../models/Task';
 import autobind from '../decorators/autobind';
-import { projectState } from '../state/ProjectState';
+import { taskState } from '../state/TaskState';
 import { validate, ValidationError } from 'class-validator';
 
-export default class ProjectInput extends Component<HTMLDivElement, HTMLFormElement> {
+export default class TaskInput extends Component<HTMLDivElement, HTMLFormElement> {
   titleInputElement: HTMLInputElement;
   descriptionInputElement: HTMLInputElement;
   usersInputElement: HTMLInputElement;
 
   constructor() {
-    super('js-project-input', 'app', true);
+    super('js-task-input', 'app', true);
     this.titleInputElement = this.element.querySelector('#title') as HTMLInputElement;
     this.descriptionInputElement = this.element.querySelector('#description') as HTMLInputElement;
     this.usersInputElement = this.element.querySelector('#users') as HTMLInputElement;
@@ -46,16 +46,16 @@ export default class ProjectInput extends Component<HTMLDivElement, HTMLFormElem
     const title = this.titleInputElement.value;
     const description = this.descriptionInputElement.value;
     const users = Number(this.usersInputElement.value);
-    const status = ProjectStatus.Active;
+    const status = TaskStatus.Active;
 
-    const project = new Project(id, title, description, users, status);
-    const errors = await validate(project);
+    const task = new Task(id, title, description, users, status);
+    const errors = await validate(task);
 
     if (errors.length > 0) {
       const errorMessages = errors.map(this.formatErrorMessage).join('\n');
       alert(`Validation failed:\n${errorMessages}`);
     } else {
-      projectState.addProject(project);
+      taskState.addTask(task);
       this.clearInputs();
     }
   }
